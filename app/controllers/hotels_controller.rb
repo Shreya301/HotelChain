@@ -1,6 +1,6 @@
 class HotelsController < ApplicationController
   before_action :set_hotel, only: %i[ show edit update destroy ]
-
+  before_action :set_options_for_manager_col, only: %i[ new edit update ]
   # GET /hotels or /hotels.json
   def index
     @hotels = Hotel.all
@@ -66,4 +66,11 @@ class HotelsController < ApplicationController
     def hotel_params
       params.require(:hotel).permit(:branch_id, :branch_name, :manager_id, :stars, :street_address, :city, :country, :pincode)
     end
+
+  def set_options_for_manager_col
+    #category_id = 1 corresponds to manager
+    # SELECT id, first_name FROM `employees` WHERE (category_id = 1)
+    # stores the result in a 2xN array for the html file to interact with
+    @options_for_manager = Employee.where("category_id = 1").pluck("first_name, id")
+  end
 end

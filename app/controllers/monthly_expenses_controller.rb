@@ -1,6 +1,7 @@
 class MonthlyExpensesController < ApplicationController
   before_action :set_monthly_expense, only: %i[ show edit update destroy ]
-
+  before_action :set_branch_choices
+  before_action :set_branch_names
   # GET /monthly_expenses or /monthly_expenses.json
   def index
     @monthly_expenses = MonthlyExpense.all
@@ -66,4 +67,16 @@ class MonthlyExpensesController < ApplicationController
     def monthly_expense_params
       params.require(:monthly_expense).permit(:financial_month, :electricity_bill, :water_bill, :branch_id, :monthly_turnover, :monthly_profit)
     end
+    def set_branch_choices
+        # SELECT branch_name, id FROM `hotels`
+        # pluck is a helper function that converts projection to 2d array
+        @branch_choices = Hotel.pluck("branch_name, id")
+    end
+    def set_branch_names
+      # SELECT branch_name, id FROM `hotels`
+      # pluck().to_h is a helper function that converts projection to hashtable
+      # with key as id
+      @branch_names = Hotel.pluck("id,branch_name").to_h
+    end
+
 end

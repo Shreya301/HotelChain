@@ -33,12 +33,12 @@
 
   <div class="field">
     <%= form.label :dob %>
-    <%= form.date_select :dob %>
+    <%= form.date_select :dob, min: Date.new(1894, 07, 03), max: Date.today %>
   </div>
 
   <div class="field">
     <%= form.label :join_date %>
-    <%= form.date_select :join_date %>
+    <%= form.date_select :join_date, min: 100.years.ago %>
   </div>
 
   <div class="field">
@@ -48,7 +48,7 @@
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.number_field :category_id %>
+    <%= form.select :category_id, options_for_select([["Manager",1],["Supervisor",2],["General-staff",3],["Intern",4]]) %>
   </div>
 
   <div class="actions">
