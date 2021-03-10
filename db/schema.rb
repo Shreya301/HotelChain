@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_183838) do
+ActiveRecord::Schema.define(version: 2021_03_10_054007) do
+
+  create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
 
   create_table "employees", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
@@ -28,14 +40,16 @@ ActiveRecord::Schema.define(version: 2021_03_07_183838) do
   end
 
   create_table "guests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "member_id"
-    t.integer "branch_id"
+    t.bigint "member_id"
+    t.bigint "branch_id"
     t.integer "r_no"
     t.date "check_in"
     t.date "check_out"
     t.float "billed_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["branch_id"], name: "fk_rails_b89698db62"
+    t.index ["member_id"], name: "fk_rails_296848e349"
   end
 
   create_table "hotels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -72,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_183838) do
     t.float "monthly_profit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["branch_id"], name: "fk_rails_7e39fdbda6"
   end
 
   create_table "rooms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -99,5 +114,8 @@ ActiveRecord::Schema.define(version: 2021_03_07_183838) do
   end
 
   add_foreign_key "employees", "employees", column: "manager_id"
+  add_foreign_key "guests", "hotels", column: "branch_id"
+  add_foreign_key "guests", "members"
   add_foreign_key "hotels", "employees", column: "manager_id"
+  add_foreign_key "monthly_expenses", "hotels", column: "branch_id"
 end
