@@ -1,15 +1,43 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div class="card my-4">
   <div class="card-header">
-    <h1><stromg>Monthly Finance:</stromg> <%= Date::MONTHNAMES[Date.today.month] %></h1>
+    <h1><stromg>This Months Finance:</stromg> <%= Date::MONTHNAMES[Date.today.month] %></h1>
   </div>
   <div class="card-body">
     <div class="row">
       <div id="barchart" class="col-lg-4"></div>
-      <div class="col-lg-4"></div>
+      <div id="piechart" class="col-lg-4"></div>
       <div id="colchart" class="col-lg-4"></div>
     </div>
     <%=link_to 'View All Finances', '/monthly_expenses', class: "btn btn-secondary" %>
+  </div>
+</div>
+<div class="card my-4 col-6 px-0 mx-0">
+  <div class="card-header">
+    <h1>Upoming Check-ins</h1>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <table class="table table-striped">
+          <thead>
+            <th>room</th>
+            <th>Branch</th>
+            <th>Check in Date</th>
+          </thead>
+          <tbody>
+          <% @upcoming_checkin.each do |t| %>
+            <tr>
+              <td><%= t.r_no %></td>
+              <td><%= @hotel_name_hash[t.branch_id] %></td>
+              <td><%= t.check_in %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <%=link_to 'View All Guests', '../guests', class: "btn btn-secondary" %>
   </div>
 </div>
 <%=@pie_chart_data%>
@@ -66,10 +94,10 @@
         );
 
         // Optional; add a title and set the width and height of the chart
-        var options3 = {'title':'Branch Wise Profits', 'width':550, 'height':400};
+        var options3 = {'title':'Monthly Expenses', 'width':550, 'height':400};
 
         // Display the chart inside the <div> element with id="piechart"
-        var chart3 = new google.visualization.BarChart(document.getElementById('piechart'));
-        chart2.draw(data3, options3);
+        var chart3 = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart3.draw(data3, options3);
     }
 </script>

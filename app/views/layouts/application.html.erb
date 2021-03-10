@@ -1,5 +1,39 @@
 <!DOCTYPE html>
 <html>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        list-style-type: none;
+    }
+    ul li {
+        padding: 6px 0;
+    }
+    ul li a {
+        --fill-color: blue;
+        text-decoration: none;
+        position: relative;
+        display: block;
+        padding: 1px 0;
+        font: 36px Raleway, sans-serif;
+        text-decoration: none;
+        text-transform: uppercase;
+        -webkit-text-stroke: 1px var(--fill-color);
+        background: linear-gradient(var(--fill-color) 0 100%) left/0 no-repeat;
+        color: transparent;
+        -webkit-background-clip: text;
+        transition: 0.5s linear;
+    }
+    ul li a:hover {
+        background-size: 100%;
+    }
+    a {
+        color: #747474;
+        text-decoration: none; /* no underline */
+    }
+</style>
   <head>
     <title>Hcms</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,26 +46,27 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container col-lg-12">
       <a class="navbar-brand" href="#">
-        <img src="http://placehold.it/150x50?text=Logo" alt="">
+        <img src="https://www.nitk.ac.in/design-system/images/logo.png" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
+          <li class="mx-1">
+            <a href="../">&nbspDashboard&nbsp </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+          <li class="mx-1">
+            <a href="../hotels">&nbspBranches&nbsp </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+          <li class="mx-1">
+            <a href="../employees">&nbspEmployees&nbsp</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+          <li class="mx-1">
+            <a href="../rooms">&nbspRooms&nbsp</a>
+          </li>
+          <li class="mx-1">
+            <a href="../monthly_expenses">&nbspExpenses&nbsp</a>
           </li>
         </ul>
       </div>
@@ -44,7 +79,6 @@
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
-
   </body>
 
 </html>
