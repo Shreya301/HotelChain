@@ -58,6 +58,9 @@ class HotelsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    # Method sends tupple object to the frontend
+    # Enables
     def set_hotel
       @hotel = Hotel.find(params[:id])
     end

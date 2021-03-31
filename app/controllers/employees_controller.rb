@@ -1,6 +1,8 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: %i[ show edit update destroy ]
-
+  before_action :set_branches
+  before_action :set_managers
+  before_action :accept_all_params
   # GET /employees or /employees.json
   def index
     @employees = Employee.all
@@ -64,6 +66,16 @@ class EmployeesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def employee_params
-      params.require(:employee).permit(:first_name, :last_name, :phone_number, :email_id, :dob, :join_date, :salary, :category_id)
+      params.require(:employee)
     end
+  def set_branches
+    # SELECT branch_name, id FROM hotels;
+    @branches = Hotel.all.pluck(:branch_name, :id)
+    @branches_hash = @branches.to_h.invert
+  end
+  def set_managers
+    @managers = Employee.where("category_id=1").pluck("first_name, id")
+    @managers_hash = @managers.to_h.invert
+  end
+
 end

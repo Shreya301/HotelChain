@@ -11,8 +11,7 @@ environment.plugins.append('Provide', new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         Popper: ['popper.js', 'default']
-}))
-
+}));
 environment.loaders.append('jquery', {
         test: require.resolve('jquery'),
         loader: 'expose-loader',

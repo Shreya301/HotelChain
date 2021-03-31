@@ -1,3 +1,8 @@
+// For creation on new employee a blank record is inserted and
+// then passed on a parameter  here 'employee'
+// For updation, the empoyee tuple is queried loaded into class object and passed on as parameter to the for
+// POST and PATCH HTML Requests then pass user input to Database connector which inturn
+// makes the updates in the database
 <%= form_with(model: employee) do |form| %>
   <% if employee.errors.any? %>
     <div id="error_explanation">
@@ -33,12 +38,12 @@
 
   <div class="field">
     <%= form.label :dob %>
-    <%= form.date_select :dob, min: Date.new(1894, 07, 03), max: Date.today %>
+    <%= form.date_select :dob, start_year: 100.year.ago.year, end_year: 17.years.ago.year%>
   </div>
 
   <div class="field">
     <%= form.label :join_date %>
-    <%= form.date_select :join_date, min: 100.years.ago %>
+    <%= form.date_select :join_date, start_year: 10.years.ago.year, end_year: 1.years.after.year %>
   </div>
 
   <div class="field">
@@ -50,8 +55,16 @@
     <%= form.label :category_id %>
     <%= form.select :category_id, options_for_select([["Manager",1],["Supervisor",2],["General-staff",3],["Intern",4]]) %>
   </div>
+  <div class="field">
+    <%= form.label :hotel_id %>
+    <%= form.select :hotel_id, options_for_select(@branches), prompt: "Select Branch" %>
+  </div>
+  <div>
+    <%= form.label :manager_id %>
+    <%= form.select :manager_id, options_for_select(@managers), prompt: "Select Manager" %>
+  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-success'%>
   </div>
 <% end %>

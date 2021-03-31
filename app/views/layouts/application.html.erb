@@ -12,7 +12,7 @@
         padding: 6px 0;
     }
     ul li a {
-        --fill-color: blue;
+        --fill-color: #ffffff;
         text-decoration: none;
         position: relative;
         display: block;
@@ -33,6 +33,11 @@
         color: #747474;
         text-decoration: none; /* no underline */
     }
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
 </style>
   <head>
     <title>Hcms</title>
@@ -41,6 +46,9 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <link rel='stylesheet' href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -57,16 +65,19 @@
             <a href="../">&nbspDashboard&nbsp </a>
           </li>
           <li class="mx-1">
-            <a href="../hotels">&nbspBranches&nbsp </a>
+            <a href="hotels">&nbspBranches&nbsp </a>
           </li>
           <li class="mx-1">
-            <a href="../employees">&nbspEmployees&nbsp</a>
+            <a href="employees">&nbspEmployees&nbsp</a>
           </li>
           <li class="mx-1">
-            <a href="../rooms">&nbspRooms&nbsp</a>
+            <a href="rooms">&nbspRooms&nbsp</a>
           </li>
           <li class="mx-1">
-            <a href="../monthly_expenses">&nbspExpenses&nbsp</a>
+            <a href="monthly_expenses">&nbspExpenses&nbsp</a>
+          </li>
+          <li class="mx-1">
+            <a href="members">&nbspMembers&nbsp</a>
           </li>
         </ul>
       </div>
@@ -75,10 +86,33 @@
   <div class="container col-lg-12">
     <%= yield %>
   </div>
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
   </body>
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('.table tfoot th:not(.blank)').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        } );
 
+        // DataTable
+        var table = $('.table').DataTable({
+            initComplete: function () {
+                // Apply the search
+                this.api().columns().every( function () {
+                    var that = this;
+
+                    $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                        if ( that.search() !== this.value ) {
+                            that
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                } );
+            }
+        });
+
+    } );
+</script>
 </html>

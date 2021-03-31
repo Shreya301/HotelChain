@@ -5,10 +5,9 @@
 
   <div class="form-inputs">
     <%= f.input :r_no %>
-    <%= f.input :type %>
     <%= f.input :tarrif %>
-    <%= f.input :occupancy %>
-    <%= f.input :branch_id %>
+    <%= f.input :occupancy, collection: [["Single",1], ["Double", 2], ["Triple",3], ["Quad",4] ]  %>
+    <%= f.input :branch_id, collection: @branches, prompt_text: "Select Branch"%>
   </div>
 
   <div class="form-actions">

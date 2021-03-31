@@ -16,7 +16,11 @@
       <th>Join date</th>
       <th>Salary</th>
       <th>Category</th>
-      <th colspan="3"></th>
+      <th>Branch</th>
+      <th>Manager</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -30,13 +34,32 @@
         <td><%= employee.dob %></td>
         <td><%= employee.join_date %></td>
         <td><%= employee.salary %></td>
-        <td><%= employee.category_id %></td>
-        <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%={1=>"Manager", 2=>"Supervisor", 3=>"General-staff", 4=>"Intern"}[employee.category_id]%></td>
+        <td><%= @branches_hash[employee.hotel_id] %></td>
+        <td><%= @managers_hash[employee.manager_id] %></td>
+        <td><%= link_to 'Show', employee, class: "btn btn-success" %></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-warning" %></td>
+        <td><%= button_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
     </tbody>
+    <tfoot>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Phone number</th>
+      <th>Email</th>
+      <th>Dob</th>
+      <th>Join date</th>
+      <th>Salary</th>
+      <th>Category</th>
+      <th>Branch</th>
+      <th>Manager</th>
+      <th class="blank"></th>
+      <th class="blank"></th>
+      <th class="blank"></th>
+    </tr>
+    </tfoot>
   </table>
 </div>
 <br>

@@ -1,5 +1,6 @@
 class GuestsController < ApplicationController
   before_action :set_guest, only: %i[ show edit update destroy ]
+  before_action :set_members, :set_rooms
 
   # GET /guests or /guests.json
   def index
@@ -66,4 +67,16 @@ class GuestsController < ApplicationController
     def guest_params
       params.require(:guest).permit(:member_id, :branch_id, :r_no, :check_in, :check_out, :billed_amount)
     end
+  def set_members
+    @members =  Member.all.pluck("first_name, id")
+    @members_hash = @members.to_h.invert
+  end
+
+  def set_rooms
+    @rooms = []
+    @branches_hash.keys.each do |branch_id|
+      @rooms += Room.where(branch_id: branch_id).pluck(:r_no).map{|x| ["Room No: #{x} (#{@branches_hash[branch_id]})", x]}
+    end
+  end
+
 end
